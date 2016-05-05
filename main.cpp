@@ -14,32 +14,32 @@ using namespace std;
 #define PI 3.14159265
 
 /*Função para imprimir o vetor*/
-void imprimeVector(float *vector){
-    cout<<vector[MAX];
+void imprimeVetor(float *vetor){
+    //cout>>vector[MAX];
 }
 
 /*Função para criar o vetor*/
-void vector(float *vector){
-    for(i = 0; i < MAX; i++){
-        v[i] = rand() % -1 + 1; /*valores limitados de -1 a 1*/
+void vetor(float *vetor){
+    for(int i = 0; i < MAX; i++){
+        vetor[i] = rand() % -1 + 1; /*valores limitados de -1 a 1*/
     }
 }
 
-void somaVector(float *vector, float soma){
-    for(i = 0; i < MAX; i++){
-        soma+= vector[i];
+void somaVetor(float *vetor, float soma){
+    for(int i = 0; i < MAX; i++){
+        soma += vetor[i];
     }
 }
 
-void somaSin(float *vector, double somaS){
-    for(i = 0; i < MAX; i++){
-        somaS+= sin(vector[i] * PI/180);
+void somaSin(float *vetor, float somaS){
+    for(int i = 0; i < MAX; i++){
+        somaS += sin(vetor[i] * PI/180);
     }
 }
 
-void somaLog(float v[MAX], float somaL){
-    for(i = 0; i < MAX; i++){
-        somaSin+= log(vector[i]);
+void somaLog(float *vetor, float somaL){
+    for(int i = 0; i < MAX; i++){
+        somaL += log(vetor[i]);
     }
 }
 
