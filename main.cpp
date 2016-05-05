@@ -1,6 +1,8 @@
 #include <thread>
 #include <cstdio>
 #include <chrono>
+#include <cmath>
+#include <math.h>
 #include <vector>
 #include <sched.h>
 #include <pthread.h>
@@ -9,28 +11,35 @@ using namespace std;
 
 #define NUMTHREADS 4
 #define MAX 100000000
+#define PI 3.14159265
 
-void vector(float v[MAX]){
+/*Função para imprimir o vetor*/
+void imprimeVector(float *vector){
+    cout<<vector[MAX];
+}
+
+/*Função para criar o vetor*/
+void vector(float *vector){
     for(i = 0; i < MAX; i++){
-        v[i] = rand(); //limitar os valorede de -1 a 1
+        v[i] = rand() % -1 + 1; /*valores limitados de -1 a 1*/
     }
 }
 
-void somaVector(float v[MAX], float soma){
+void somaVector(float *vector, float soma){
     for(i = 0; i < MAX; i++){
-        soma+= v[i];
+        soma+= vector[i];
     }
 }
 
-void somaSin(float v[MAX], float somaS){
+void somaSin(float *vector, double somaS){
     for(i = 0; i < MAX; i++){
-        somaS+= sin(v[i]); //verificar o uso da função sin()
+        somaS+= sin(vector[i] * PI/180);
     }
 }
 
 void somaLog(float v[MAX], float somaL){
     for(i = 0; i < MAX; i++){
-        somaSin+= log(v[i]); //verificar o uso da função log()
+        somaSin+= log(vector[i]);
     }
 }
 
@@ -45,6 +54,9 @@ void run(int i)
 
 int main(int argc, char *argv[])
 {
+    /*initialize random seed*/
+    srand(time(NULL));
+
     vector<thread> threads;
 
     unsigned int n = thread::hardware_concurrency();
