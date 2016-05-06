@@ -1,5 +1,6 @@
 #include <thread>
 #include <cstdio>
+#include <iostream>
 #include <chrono>
 #include <cmath>
 #include <math.h>
@@ -73,38 +74,83 @@ int main(int argc, char *argv[])
 {
 
     int NUMTHREADS;
+    int func;
 
     vector<thread> threads;
 
     unsigned int n = thread::hardware_concurrency();
-    printf("Minha CPU possui %d núcleos\n",n);
+    cout << "Minha CPU possui" << n << "núcleos\n";
 
     cpu_set_t cpuset;
     int ret;
 
-    for (int i = 0; i < (NUMTHREADS = 1); i++)
-    {
-        auto t1 = chrono::high_resolution_clock::now();
-    	threads.push_back(thread(run,i));
-    
+    cout << "Digite a opcao desejada: \n";
     /*
-    * initialize random seed
-    * srand(time(NULL));
+    * 1 - Executar em uma thread e apenas um core
+    * 2 - Executar duas instâncias da função em duas threads e em cores diferentes
+    * 3 - Executar duas instâncias da função em duas threads e em um mesmo core
     */
-    	vetor();
-    	somaVetor();
-    	somaSin();
-    	somaLog();
+    cout << "1 - Função 1 \n 
+             2 - Função 2 \n
+             3 - Função 3 \n";
 
-        CPU_ZERO(&cpuset);
-        CPU_SET(i, &cpuset);
-        pthread_setaffinity_np(threads[i].native_handle(), sizeof(cpu_set_t), &cpuset);
+    switch(func){
+        case 1:
+            for (int i = 0; i < (NUMTHREADS = 1); i++){
+            /*
+            * initialize random seed
+            * srand(time(NULL));
+            */
+                auto t1 = chrono::high_resolution_clock::now();
 
-        auto t2 =  chrono::high_resolution_clock::now();
-        chrono::duration<double> tempo = t2 - t1;
-        cout << "Tempo total gasto: " << tempo.count() << "\n";
-    }       
+                vetor();
+                
+                /*
+                somaVetor();
+                somaSin();
+                somaLog();
+                */
+                
+                threads.push_back(thread(run,i));
+                CPU_ZERO(&cpuset);
+                CPU_SET(i, &cpuset);
+                pthread_setaffinity_np(threads[i].native_handle(), sizeof(cpu_set_t), &cpuset);
 
+                auto t2 =  chrono::high_resolution_clock::now();
+                chrono::duration<double> tempo = t2 - t1;
+                cout << "Tempo total gasto: " << tempo.count() << "\n";
+            }       
+            break;
+        case 2:
+            for (int i = 0; i < (NUMTHREADS = 1); i++){
+            /*
+            * initialize random seed
+            * srand(time(NULL));
+            */
+                auto t1 = chrono::high_resolution_clock::now();
+
+                vetor();
+                
+                /*
+                somaVetor();
+                somaSin();
+                somaLog();
+                */
+                
+                
+                pthread_setaffinity_np(threads[i].native_handle(), sizeof(cpu_set_t), &cpuset);
+
+                auto t2 =  chrono::high_resolution_clock::now();
+                chrono::duration<double> tempo = t2 - t1;
+                cout << "Tempo total gasto: " << tempo.count() << "\n";
+            }
+            break;
+        case 3:
+            break;
+        default:
+            cout << "Opção inválida!";
+
+    }        
     for (auto& th : threads) th.join();
 
     return 0;
