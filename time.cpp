@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     auto t1 = std::chrono::high_resolution_clock::now();
 
     int i;
-    cout << "Digite um valor ineiro\n";
+    cout << "Digite um valor inteiro\n";
     cin >> i;
 
     auto t2 =  std::chrono::high_resolution_clock::now();
